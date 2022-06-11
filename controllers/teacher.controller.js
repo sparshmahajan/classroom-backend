@@ -56,7 +56,7 @@ const addScore = async (req, res) => {
                 return res.status(500).json({ message: 'Server error' });
             }
 
-            return res.status(200).json({ message: 'Score added' }, updatedStudent);
+            return res.status(201).json({ message: 'Score added' }, updatedStudent);
         });
     });
 }

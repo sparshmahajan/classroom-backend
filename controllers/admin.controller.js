@@ -1,3 +1,4 @@
+const Admin = require('../models/admin');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');
 const Classroom = require('../models/classroom');
@@ -178,7 +179,7 @@ const mapTeacher = async (req, res) => {
             foundClassroom.teachers.push(foundTeacher.id);
             foundClassroom.save(function (e) {
                 if (!e) {
-                    return res.send({ message: "Successfully mapped teacher to classroom." });
+                    return res.status(201).send({ message: "Successfully mapped teacher to classroom." });
                 }
                 else {
                     console.log(e);
@@ -229,7 +230,7 @@ const mapStudent = async (req, res) => {
                 });
             });
         });
-        return res.send({ message: "Successfully mapped student to classroom." });
+        return res.status(201).send({ message: "Successfully mapped student to classroom." });
     });
 }
 
@@ -373,7 +374,7 @@ const updateUser = async (req, res) => {
                 return res.status(400).send({ message: "Wrong Teacher id" });
             }
 
-            return res.send({ message: "Successfully updated teacher." });
+            return res.status(201).send({ message: "Successfully updated teacher." });
         });
     } else if (item === 'student') {
         Student.findOneAndUpdate({ id: id }, {
@@ -392,7 +393,7 @@ const updateUser = async (req, res) => {
                 return res.status(400).send({ message: "Wrong Student id" });
             }
 
-            return res.send({ message: "Successfully updated student." });
+            return res.status(201).send({ message: "Successfully updated student." });
         });
     } else if (item === 'class') {
         Classroom.findOneAndUpdate({ id: id }, {
@@ -409,7 +410,7 @@ const updateUser = async (req, res) => {
                 return res.status(400).send({ message: "Wrong Classroom id" });
             }
 
-            return res.send({ message: "Successfully updated classroom." });
+            return res.status(201).send({ message: "Successfully updated classroom." });
         });
     } else {
         return res.status(400).send({ message: "Wrong Query" });
