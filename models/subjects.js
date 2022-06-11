@@ -20,8 +20,7 @@ const subjectSchema = new mongoose.Schema({
     comments: {
         type: String,
     },
-}, { timestamps: true });
+}, { timestamps: false });
 
-const Subject = mongoose.model('Subject', subjectSchema);
 
-module.exports = Subject;
+module.exports = subjectSchema;

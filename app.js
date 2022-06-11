@@ -9,9 +9,11 @@ const port = process.env.PORT || 5000;
 //connect to mongoDB
 const db = require("./util/database");
 
-//Routes and controllers
+//Routes import
 const adminRouter = require("./routes/admin.routes");
 const authRouter = require("./routes/auth.routes");
+const teacherRouter = require("./routes/teacher.routes");
+const studentRouter = require("./routes/student.routes");
 
 const frontendUrl = "http://localhost:3000";
 
@@ -45,6 +47,8 @@ app.get("/", (req, res) => {
 //routes
 app.use('/api/admin', adminRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/teacher', teacherRouter);
+app.use('/api/student', studentRouter);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);

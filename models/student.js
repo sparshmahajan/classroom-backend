@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Subject = require('./subjects');
+const subjectSchema = require('./subjects');
 
 const studentSchema = new mongoose.Schema({
     name: {
@@ -25,9 +25,17 @@ const studentSchema = new mongoose.Schema({
         type: [String],
     },
     subjects: {
-        type: [Subject.schema],
+        type: [subjectSchema],
         unique: false,
         default: []
+    },
+    totalScore: {
+        type: Number,
+        default: 0
+    },
+    percentage: {
+        type: mongoose.Schema.Types.Decimal128,
+        default: 0
     }
 }, { timestamps: true });
 
