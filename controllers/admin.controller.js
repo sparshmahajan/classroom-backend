@@ -1,4 +1,3 @@
-const Admin = require('../models/admin');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');
 const Classroom = require('../models/classroom');
@@ -96,38 +95,6 @@ const addUser = async (req, res) => {
         return res.status(400).send({ message: "Invalid item." });
     }
 };
-
-const adminSignup = async (req, res) => {
-    const { name, email, password } = req.body; //believing that the data is validated in the frontend
-
-    Admin.findOne({ email: email }, async function (error, foundUser) {
-        if (error) {
-            console.log(error);
-            return res.status(500).send({ message: "Server Error" });
-        }
-
-        if (foundUser) {
-            return res.status(400).send({ message: "Account Already exists." });
-        }
-
-        const encryptedPassword = await Encrypt(password);
-        const admin = new Admin({
-            name: name,
-            email: email,
-            password: encryptedPassword,
-            id: randomize('0', 5),
-        });
-        admin.save(function (e) {
-            if (!e) {
-                return res.send({ message: "Successfully saved admin data." });
-            }
-            else {
-                console.log(e);
-                return res.status(500).send({ message: "Error while saving data." });
-            }
-        });
-    });
-}
 
 const getList = async (req, res) => {
     const item = req.params.item;
@@ -449,4 +416,4 @@ const updateUser = async (req, res) => {
     }
 }
 
-module.exports = { addUser, adminSignup, getList, mapTeacher, mapStudent, removeUser, updateUser };
+module.exports = { addUser, getList, mapTeacher, mapStudent, removeUser, updateUser };

@@ -61,4 +61,21 @@ const addScore = async (req, res) => {
     });
 }
 
-module.exports = { getStudentList, addScore };
+const getStudentScores = async (req, res) => {
+    const classId = req.params.id;
+
+    Student.find({ classroomId: classId }, { name: 1, id: 1, email: 1, subjects: 1, totalScore: 1, percentage: 1 }, function (error, foundStudents) {
+        if (error) {
+            console.log(error);
+            return res.status(500).send({ message: "Server Error" });
+        }
+
+        if (!foundStudents) {
+            return res.status(400).send({ message: "No students found." });
+        }
+
+        return res.status(200).send(foundStudents);
+    }).sort({ percentage: -1 });
+}
+
+module.exports = { getStudentList, addScore, getStudentScores };
